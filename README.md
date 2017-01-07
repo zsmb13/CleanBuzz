@@ -5,7 +5,7 @@
 
 I'll let the app speak for itself first.
 
-![15](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/15.PNG)
+![15](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/15.png)
 
 So it's *just* FizzBuzz! You enter a number and you get the FizzBuzz-ified version back.
 
@@ -46,9 +46,9 @@ What it does do is use [buzzcloud.xyz](http://buzzcloud.xyz/)'s REST API. This w
 - Tests. It's probably coming, it's just not here yet.
 
 ## More screenshots
-![5](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/5.PNG)
-![8](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/8.PNG)
-![9](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/9.PNG)
+![5](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/5.png)
+![8](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/8.png)
+![9](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/9.png)
 
 ## TL;DR
 This is a simple FizzBuzz app that uses Kotlin, Clean architecture, MVP, RxJava, Dagger, Retrofit, and a REST API for the business logic.
