@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CleanBuzz</string>
+
+    <string name="buzz_me">Buzz me</string>
+    <string name="enter_number">Enter numberText</string>
+
+    <string name="error_number_info">Number 1–999 please</string>
+    <string name="error_unknown">unknown error</string>
+    <string name="error_network">network error</string>
+    <string name="new_activity">New Activity</string>
+</resources>
