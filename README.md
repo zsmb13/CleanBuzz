@@ -5,7 +5,7 @@
 
 I'll let the app speak for itself first.
 
-![15](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/15.png)
+![15](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/15.PNG)
 
 So it's *just* FizzBuzz! You enter a number and you get the FizzBuzz-ified version back.
 
@@ -27,7 +27,7 @@ Anyhow, you can learn more about it on the [official website](http://kotlinlang.
 The app is built with Clean architecture, more specifically along [Marko Milos](https://github.com/MarkoMilos)'s interpretation of it. You can watch the very underrated presentation he gave about it at [droidcon Zagreb 2016](http://droidcon.hr/) on YouTube [here](https://www.youtube.com/watch?v=3Mq5newPdck).
 
 Here's just a high level overview - it's fairly close to most Clean architecture implementations, and it uses MVP for the presentation layer. Watch the presentation linked above for more details.
-![architecture](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/architecture.png)
+![architecture](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/architecture.PNG)
 
 ### Libraries
 - [RxJava](https://github.com/ReactiveX/RxJava): Reactive programming is getting more and more popular in every language and on every platform, and Android is no exception, so it would be a shame to miss out on it.
@@ -46,9 +46,9 @@ What it does do is use [buzzcloud.xyz](http://buzzcloud.xyz/)'s REST API. This w
 - Tests. It's probably coming, it's just not here yet.
 
 ## More screenshots
-![5](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/5.png) 
-![8](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/8.png) 
-![9](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/9.png)
+![5](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/5.PNG)
+![8](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/8.PNG)
+![9](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/9.PNG)
 
 ## TL;DR
 This is a simple FizzBuzz app that uses Kotlin, Clean architecture, MVP, RxJava, Dagger, Retrofit, and a REST API for the business logic.
