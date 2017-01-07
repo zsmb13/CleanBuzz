@@ -2,8 +2,8 @@ package co.zsmb.example.cleanbuzz._1_presentation.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import co.zsmb.example.cleanbuzz.di.DaggerActivityComponent
 import co.zsmb.example.cleanbuzz.di.activity.ActivityComponent
+import co.zsmb.example.cleanbuzz.di.activity.DaggerActivityComponent
 import co.zsmb.example.cleanbuzz.di.application.BuzzApplication
 
 abstract class BaseView<P : LifecycleObserver> : AppCompatActivity() {
@@ -50,7 +50,7 @@ abstract class BaseView<P : LifecycleObserver> : AppCompatActivity() {
 
     private fun initActivityComponent() {
         activityComponent = DaggerActivityComponent.builder()
-                .buzzComponent(BuzzApplication.applicationComponent)
+                .applicationComponent(BuzzApplication.applicationComponent)
                 .build()
     }
 

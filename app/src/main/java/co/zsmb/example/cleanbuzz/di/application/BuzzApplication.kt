@@ -1,7 +1,6 @@
 package co.zsmb.example.cleanbuzz.di.application
 
 import android.app.Application
-import co.zsmb.example.cleanbuzz.di.DaggerApplicationComponent
 
 class BuzzApplication : Application() {
 
