@@ -15,7 +15,7 @@ class BuzzPresenterImpl @Inject constructor(
 
     override fun bind(view: BuzzView) {
         super.bind(view)
-        updateView()
+        //updateView()
     }
 
     override fun onTerminate() {
@@ -37,7 +37,14 @@ class BuzzPresenterImpl @Inject constructor(
     private fun checkInput(numberString: String): Int? {
         if (numberString.isBlank()) return null
 
-        val number = numberString.toInt()
+        val number: Int
+
+        try {
+            number = numberString.toInt()
+        } catch (e: NumberFormatException) {
+            return null
+        }
+
         return if (number > 0 && number < 1000) number else null
     }
 
