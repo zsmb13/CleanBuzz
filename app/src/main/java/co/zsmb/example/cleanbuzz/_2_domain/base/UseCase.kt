@@ -8,7 +8,7 @@ import rx.subscriptions.Subscriptions
 
 abstract class UseCase<T> : Interactor<T> {
 
-    var subscription = Subscriptions.empty()
+    private var subscription = Subscriptions.empty()
 
     protected abstract fun createObservable(): Observable<T>
 
