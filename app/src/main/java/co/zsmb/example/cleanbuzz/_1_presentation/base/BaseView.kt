@@ -8,9 +8,9 @@ import co.zsmb.example.cleanbuzz.di.application.BuzzApplication
 
 abstract class BaseView<P : LifecycleObserver> : AppCompatActivity() {
 
-    private lateinit var presenter: P
+    protected lateinit var presenter: P
 
-    private lateinit var activityComponent: ActivityComponent
+    protected lateinit var activityComponent: ActivityComponent
 
     protected abstract fun createPresenter(): P
 
