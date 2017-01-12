@@ -6,7 +6,9 @@ import co.zsmb.example.cleanbuzz._1_presentation.base.BasePresenter
 import co.zsmb.example.cleanbuzz._2_domain.BuzzUseCase
 import javax.inject.Inject
 
-class BuzzPresenterImpl @Inject constructor(val context: Context, val buzzUseCase: BuzzUseCase)
+class BuzzPresenterImpl @Inject constructor(
+        private val context: Context,
+        private val buzzUseCase: BuzzUseCase)
     : BasePresenter<BuzzView>(), BuzzPresenter {
 
     private var lastResult = PresentableResult.EMPTY

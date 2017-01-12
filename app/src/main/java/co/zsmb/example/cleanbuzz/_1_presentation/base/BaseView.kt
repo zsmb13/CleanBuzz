@@ -8,11 +8,11 @@ import co.zsmb.example.cleanbuzz.di.application.BuzzApplication
 
 abstract class BaseView<P : LifecycleObserver> : AppCompatActivity() {
 
-    lateinit var presenter: P
+    private lateinit var presenter: P
 
-    lateinit var activityComponent: ActivityComponent
+    private lateinit var activityComponent: ActivityComponent
 
-    abstract fun createPresenter(): P
+    protected abstract fun createPresenter(): P
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +56,7 @@ abstract class BaseView<P : LifecycleObserver> : AppCompatActivity() {
 
     private fun initPresenter() {
         val oldPresenter = lastCustomNonConfigurationInstance
+
         if (oldPresenter == null) {
             presenter = createPresenter()
             presenter.onInit()

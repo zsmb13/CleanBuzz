@@ -7,8 +7,8 @@ import javax.inject.Inject
 
 class BuzzRepositoryImpl
 @Inject constructor(
-        val memoryDataSource: BuzzDataSourceMemory,
-        val networkDataSource: BuzzDataSourceNetwork)
+        private val memoryDataSource: BuzzDataSourceMemory,
+        private val networkDataSource: BuzzDataSourceNetwork)
     : BuzzRepository {
 
     override fun getBuzz(number: Int): Observable<BuzzResult>
