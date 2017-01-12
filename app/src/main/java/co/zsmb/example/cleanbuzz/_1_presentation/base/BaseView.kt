@@ -3,8 +3,11 @@ package co.zsmb.example.cleanbuzz._1_presentation.base
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import co.zsmb.example.cleanbuzz.di.activity.ActivityComponent
+import co.zsmb.example.cleanbuzz.di.activity.BuzzDomainModule
 import co.zsmb.example.cleanbuzz.di.activity.DaggerActivityComponent
 import co.zsmb.example.cleanbuzz.di.application.BuzzApplication
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 abstract class BaseView<P : LifecycleObserver> : AppCompatActivity() {
 
@@ -51,6 +54,11 @@ abstract class BaseView<P : LifecycleObserver> : AppCompatActivity() {
     private fun initActivityComponent() {
         activityComponent = DaggerActivityComponent.builder()
                 .applicationComponent(BuzzApplication.applicationComponent)
+                .buzzDomainModule(
+                        BuzzDomainModule(
+                                ioScheduler = Schedulers.io(),
+                                uiScheduler = AndroidSchedulers.mainThread())
+                )
                 .build()
     }
 

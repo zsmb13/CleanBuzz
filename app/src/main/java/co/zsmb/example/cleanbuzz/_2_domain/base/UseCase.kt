@@ -1,12 +1,15 @@
 package co.zsmb.example.cleanbuzz._2_domain.base
 
 import rx.Observable
+import rx.Scheduler
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import rx.subscriptions.Subscriptions
 
-abstract class UseCase<T> : Interactor<T> {
+abstract class UseCase<T>(
+        private val ioScheduler: Scheduler,
+        private val uiScheduler: Scheduler) : Interactor<T> {
 
     private var subscription = Subscriptions.empty()
 
@@ -14,15 +17,15 @@ abstract class UseCase<T> : Interactor<T> {
 
     override fun execute(subscriber: Subscriber<T>) {
         this.subscription = createObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(ioScheduler)
+                .observeOn(uiScheduler)
                 .subscribe(subscriber)
     }
 
     override fun execute(): Observable<T> =
             createObservable()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(ioScheduler)
+                    .observeOn(uiScheduler)
 
     fun unsubscribe() {
         if (!subscription.isUnsubscribed) {
