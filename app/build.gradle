@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "co.zsmb.example.cleanbuzz"
         minSdkVersion 15
@@ -28,7 +28,12 @@ kapt {
     generateStubs = true
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
+    /* Defaults */
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -54,8 +59,8 @@ dependencies {
     /* Dagger */
     compile "com.google.dagger:dagger:2.8"
     kapt "com.google.dagger:dagger-compiler:2.8"
-}
 
-repositories {
-    mavenCentral()
+    /* Mockito */
+    testCompile "org.mockito:mockito-core:2.6.1"
+    testCompile "com.nhaarman:mockito-kotlin:1.1.0"
 }
