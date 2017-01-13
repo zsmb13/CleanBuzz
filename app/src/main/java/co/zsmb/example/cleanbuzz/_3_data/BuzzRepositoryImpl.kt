@@ -18,10 +18,12 @@ class BuzzRepositoryImpl
 
     private fun memory(number: Int) = memoryDataSource.getBuzz(number)
 
-    private fun networkWithCache(number: Int)
-            = networkDataSource.getBuzz(number)
-            .doOnNext {
-                memoryDataSource.cacheResults(it)
-            }
+    private fun networkWithCache(number: Int) = Observable.defer {
+        networkDataSource.getBuzz(number)
+                .doOnNext {
+                    memoryDataSource.cacheResults(it)
+                }
+    }
+
 
 }
