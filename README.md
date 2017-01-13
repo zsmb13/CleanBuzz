@@ -42,8 +42,22 @@ Yes, although it's not what you might think, the app isn't phising for your pers
 
 What it does do is use [buzzcloud.xyz](http://buzzcloud.xyz/)'s REST API. This wonderful websites offers free FaaS (FizzBuzz as a service), and thus provides the application's business logic.
 
+###Tests
+
+#### Unit tests
+The project has just a couple of them, since most classes are just simple passthroughs and the REST API does not need testing. The tests use JUnit, [Mockito](http://site.mockito.org/), and [Mockito-Kotlin](https://github.com/nhaarman/mockito-kotlin) (which provides some more Kotlin-friendly syntax for Mockito, although the parts of it used could easily be reimplemented).
+
+The following tests are included:
+- Presenter
+    - [BuzzPresenterImplTest](https://github.com/zsmb13/CleanBuzz/blob/master/app/src/test/java/co/zsmb/example/cleanbuzz/_1_presentation/BuzzPresenterImplTest.kt)
+    - [BuzzPresenterImplParameterizedTest](https://github.com/zsmb13/CleanBuzz/blob/master/app/src/test/java/co/zsmb/example/cleanbuzz/_1_presentation/BuzzPresenterImplParameterizedTest.kt)
+- Repository implementation
+    - [BuzzRepositoryImplTest](https://github.com/zsmb13/CleanBuzz/blob/master/app/src/test/java/co/zsmb/example/cleanbuzz/_3_data/BuzzRepositoryImplTest.kt)
+- Memory data source
+    - [BuzzDataSourceMemoryTest](https://github.com/zsmb13/CleanBuzz/blob/master/app/src/test/java/co/zsmb/example/cleanbuzz/_3_data/BuzzDataSourceMemoryTest.kt)
+
 ## TODOs
-- Tests. It's probably coming, it's just not here yet.
+- Higher level tests
 
 ## More screenshots
 ![5](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/5.png)
@@ -51,4 +65,6 @@ What it does do is use [buzzcloud.xyz](http://buzzcloud.xyz/)'s REST API. This w
 ![9](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/9.png)
 
 ## TL;DR
-This is a simple FizzBuzz app that uses Kotlin, Clean architecture, MVP, RxJava, Dagger, Retrofit, and a REST API for the business logic.
+This is a simple FizzBuzz app that uses
+- a REST API for the business logic
+- Kotlin, Clean architecture, MVP, RxJava, Dagger, Retrofit, Mockito
