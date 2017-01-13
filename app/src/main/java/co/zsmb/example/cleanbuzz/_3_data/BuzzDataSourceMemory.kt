@@ -4,7 +4,7 @@ import rx.Observable
 
 class BuzzDataSourceMemory : BuzzDataSource {
 
-    private val buzzResults = mutableListOf("0") // leading 0 for indexes to line up nicely
+    val buzzResults = mutableListOf("0") // leading 0 for indexes to line up nicely
 
     fun cacheResults(results: List<String>) {
         if(results.size < buzzResults.size) {
@@ -17,7 +17,7 @@ class BuzzDataSourceMemory : BuzzDataSource {
     }
 
     override fun getBuzz(number: Int): Observable<List<String>> =
-            if (number < buzzResults.size) {
+            if (number > 0 && number < buzzResults.size) {
                 val result = buzzResults[number]
                 Observable.just(listOf(result))
             }
@@ -26,7 +26,7 @@ class BuzzDataSourceMemory : BuzzDataSource {
             }
 
     fun <E> List<E>.subList(fromIndex: Int): List<E> {
-        return this.subList(fromIndex, this.lastIndex)
+        return this.subList(fromIndex, this.lastIndex + 1)
     }
 
 }
