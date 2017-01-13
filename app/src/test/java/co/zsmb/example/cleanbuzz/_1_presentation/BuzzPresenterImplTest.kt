@@ -38,70 +38,70 @@ class BuzzPresenterImplTest {
     }
 
     @Test
-    fun requestNumberWithEmptyString() {
+    fun requestNumberWithEmptyString_showsErrorInView() {
         buzzPresenter.requestNumber("")
 
         verify(view).showResult(eq(
-                PresentableResult(result = ERROR_NUMBER_INFO, isError = true))
-        )
+                PresentableResult(result = ERROR_NUMBER_INFO, isError = true)
+        ))
     }
 
     @Test
-    fun requestNumberWithMinValue() {
+    fun requestNumberWithMinValue_showsResultInView() {
         whenever(usecase.execute()).thenReturn(immediateResultOf("1"))
 
         buzzPresenter.requestNumber("1")
 
         verify(view).showResult(eq(
-                PresentableResult(result = "1", isError = false))
-        )
+                PresentableResult(result = "1", isError = false)
+        ))
     }
 
     @Test
-    fun requestNumberWithMaxValue() {
+    fun requestNumberWithMaxValue_showsResultInView() {
         whenever(usecase.execute()).thenReturn(immediateResultOf("999"))
 
         buzzPresenter.requestNumber("999")
 
         verify(view).showResult(eq(
-                PresentableResult(result = "999", isError = false))
-        )
+                PresentableResult(result = "999")
+        ))
     }
 
     @Test
-    fun requestNumberWithJustBelowMinValue() {
+    fun requestNumberWithJustBelowMinValue_showsErrorInView() {
         buzzPresenter.requestNumber("0")
 
         verify(view).showResult(eq(
-                PresentableResult(result = ERROR_NUMBER_INFO, isError = true))
-        )
+                PresentableResult(result = ERROR_NUMBER_INFO, isError = true)
+        ))
     }
 
     @Test
-    fun requestNumberWithJustAboveMaxValue() {
+    fun requestNumberWithJustAboveMaxValue_showsErrorInView() {
         buzzPresenter.requestNumber("1000")
 
         verify(view).showResult(eq(
-                PresentableResult(result = ERROR_NUMBER_INFO, isError = true))
-        )
+                PresentableResult(result = ERROR_NUMBER_INFO, isError = true)
+        ))
     }
 
     @Test
-    fun requestNumberWithNonNumberArgument() {
+    fun requestNumberWithNonNumberArgument_showsErrorInView() {
         buzzPresenter.requestNumber("bunny")
 
         verify(view).showResult(eq(
-                PresentableResult(result = ERROR_NUMBER_INFO, isError = true))
-        )
+                PresentableResult(result = ERROR_NUMBER_INFO, isError = true)
+        ))
     }
 
     @Test
-    fun requestNumberWithInvalidValue() {
+    fun requestNumberWithInvalidValue_showsErrorInView() {
         buzzPresenter.requestNumber("1234")
 
         verify(view).showResult(eq(
-                PresentableResult(result = ERROR_NUMBER_INFO, isError = true))
-        )
+                PresentableResult(result = ERROR_NUMBER_INFO, isError = true)
+        ))
     }
 
     private fun immediateResultOf(result: String)

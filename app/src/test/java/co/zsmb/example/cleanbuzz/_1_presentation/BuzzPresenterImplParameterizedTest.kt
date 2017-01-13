@@ -36,14 +36,14 @@ class BuzzPresenterImplParameterizedTest(val input: String) {
     }
 
     @Test
-    fun requestNumberWithValidValue() {
+    fun requestNumberWithValidValue_showsResultInView() {
         whenever(usecase.execute()).thenReturn(immediateResultOf(input))
 
         buzzPresenter.requestNumber(input)
 
         verify(view).showResult(eq(
-                PresentableResult(result = input, isError = false))
-        )
+                PresentableResult(result = input, isError = false)
+        ))
     }
 
     private fun immediateResultOf(result: String)
