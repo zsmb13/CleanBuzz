@@ -3,7 +3,6 @@ package co.zsmb.example.cleanbuzz._3_data
 import co.zsmb.example.cleanbuzz._2_domain.BuzzRepository
 import co.zsmb.example.cleanbuzz._2_domain.BuzzResult
 import com.nhaarman.mockito_kotlin.*
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test

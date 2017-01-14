@@ -1,6 +1,5 @@
 package co.zsmb.example.cleanbuzz._3_data
 
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
