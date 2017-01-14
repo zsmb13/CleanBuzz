@@ -49,12 +49,12 @@ The project has just a couple of them, since most classes are just simple passth
 
 The following tests are included:
 - Presenter
-    - [BuzzPresenterImplTest](https://github.com/zsmb13/CleanBuzz/blob/master/app/src/test/java/co/zsmb/example/cleanbuzz/_1_presentation/BuzzPresenterImplTest.kt)
-    - [BuzzPresenterImplParameterizedTest](https://github.com/zsmb13/CleanBuzz/blob/master/app/src/test/java/co/zsmb/example/cleanbuzz/_1_presentation/BuzzPresenterImplParameterizedTest.kt)
+    - [BuzzPresenterImplTest](https://github.com/zsmb13/CleanBuzz/blob/master/app/src/test/kotlin/co/zsmb/example/cleanbuzz/_1_presentation/BuzzPresenterImplTest.kt)
+    - [BuzzPresenterImplParameterizedTest](https://github.com/zsmb13/CleanBuzz/blob/master/app/src/test/kotlin/co/zsmb/example/cleanbuzz/_1_presentation/BuzzPresenterImplParameterizedTest.kt)
 - Repository implementation
-    - [BuzzRepositoryImplTest](https://github.com/zsmb13/CleanBuzz/blob/master/app/src/test/java/co/zsmb/example/cleanbuzz/_3_data/BuzzRepositoryImplTest.kt)
+    - [BuzzRepositoryImplTest](https://github.com/zsmb13/CleanBuzz/blob/master/app/src/test/kotlin/co/zsmb/example/cleanbuzz/_3_data/BuzzRepositoryImplTest.kt)
 - Memory data source
-    - [BuzzDataSourceMemoryTest](https://github.com/zsmb13/CleanBuzz/blob/master/app/src/test/java/co/zsmb/example/cleanbuzz/_3_data/BuzzDataSourceMemoryTest.kt)
+    - [BuzzDataSourceMemoryTest](https://github.com/zsmb13/CleanBuzz/blob/master/app/src/test/kotlin/co/zsmb/example/cleanbuzz/_3_data/BuzzDataSourceMemoryTest.kt)
 
 ## TODOs
 - Higher level tests
