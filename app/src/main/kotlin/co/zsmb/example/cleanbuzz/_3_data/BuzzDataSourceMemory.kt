@@ -2,11 +2,11 @@ package co.zsmb.example.cleanbuzz._3_data
 
 import rx.Observable
 
-class BuzzDataSourceMemory : BuzzDataSource {
+class BuzzDataSourceMemory : BuzzDataSourceWithCache {
 
     val buzzResults = mutableListOf("0") // leading 0 for indexes to line up nicely
 
-    fun cacheResults(results: List<String>) {
+    override fun cacheResults(results: List<String>) {
         if(results.size < buzzResults.size) {
             return
         }
