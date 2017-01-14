@@ -54,11 +54,6 @@ abstract class BaseView<P : LifecycleObserver> : AppCompatActivity() {
     private fun initActivityComponent() {
         activityComponent = DaggerActivityComponent.builder()
                 .applicationComponent(BuzzApplication.applicationComponent)
-                .buzzDomainModule(
-                        BuzzDomainModule(
-                                ioScheduler = Schedulers.io(),
-                                uiScheduler = AndroidSchedulers.mainThread())
-                )
                 .build()
     }
 

@@ -2,10 +2,7 @@ package co.zsmb.example.cleanbuzz._1_presentation
 
 import co.zsmb.example.cleanbuzz._2_domain.BuzzResult
 import co.zsmb.example.cleanbuzz._2_domain.BuzzUseCase
-import com.nhaarman.mockito_kotlin.eq
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -31,13 +28,18 @@ class BuzzPresenterImplParameterizedTest(val input: String) {
 
     @Before
     fun setUp() {
-        buzzPresenter = BuzzPresenterImpl(context = mock(), buzzUseCase = usecase)
+        buzzPresenter = BuzzPresenterImpl(
+                context = mock(),
+                buzzUseCase = usecase,
+                ioScheduler = Schedulers.immediate(),
+                mainScheduler = Schedulers.immediate())
+
         buzzPresenter.bind(view)
     }
 
     @Test
     fun requestNumberWithValidValue_showsResultInView() {
-        whenever(usecase.execute()).thenReturn(immediateResultOf(input))
+        whenever(usecase.execute(any(), any(), any())) doReturn Observable.just(BuzzResult(input))
 
         buzzPresenter.requestNumber(input)
 
@@ -45,11 +47,6 @@ class BuzzPresenterImplParameterizedTest(val input: String) {
                 PresentableResult(result = input, isError = false)
         ))
     }
-
-    private fun immediateResultOf(result: String)
-            = Observable.just(BuzzResult(result))
-            .subscribeOn(Schedulers.immediate())
-            .observeOn(Schedulers.immediate())
 
     companion object {
         @Parameterized.Parameters @JvmStatic

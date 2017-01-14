@@ -4,10 +4,7 @@ import android.content.Context
 import co.zsmb.example.cleanbuzz.R
 import co.zsmb.example.cleanbuzz._2_domain.BuzzResult
 import co.zsmb.example.cleanbuzz._2_domain.BuzzUseCase
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.eq
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,7 +30,12 @@ class BuzzPresenterImplTest {
     fun setUp() {
         whenever(context.getString(R.string.error_number_info)) doReturn ERROR_NUMBER_INFO
 
-        buzzPresenter = BuzzPresenterImpl(context, usecase)
+        buzzPresenter = BuzzPresenterImpl(
+                context = context,
+                buzzUseCase = usecase,
+                ioScheduler = Schedulers.immediate(),
+                mainScheduler = Schedulers.immediate())
+
         buzzPresenter.bind(view)
     }
 
@@ -48,7 +50,7 @@ class BuzzPresenterImplTest {
 
     @Test
     fun requestNumberWithMinValue_showsResultInView() {
-        whenever(usecase.execute()).thenReturn(immediateResultOf("1"))
+        whenever(usecase.execute(any(), any(), any())) doReturn Observable.just(BuzzResult("1"))
 
         buzzPresenter.requestNumber("1")
 
@@ -59,7 +61,7 @@ class BuzzPresenterImplTest {
 
     @Test
     fun requestNumberWithMaxValue_showsResultInView() {
-        whenever(usecase.execute()).thenReturn(immediateResultOf("999"))
+        whenever(usecase.execute(any(), any(), any())) doReturn Observable.just(BuzzResult("999"))
 
         buzzPresenter.requestNumber("999")
 
@@ -103,10 +105,5 @@ class BuzzPresenterImplTest {
                 PresentableResult(result = ERROR_NUMBER_INFO, isError = true)
         ))
     }
-
-    private fun immediateResultOf(result: String)
-            = Observable.just(BuzzResult(result))
-            .subscribeOn(Schedulers.immediate())
-            .observeOn(Schedulers.immediate())
 
 }

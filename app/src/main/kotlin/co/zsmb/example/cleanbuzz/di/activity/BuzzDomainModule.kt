@@ -7,12 +7,10 @@ import dagger.Provides
 import rx.Scheduler
 
 @Module
-class BuzzDomainModule(
-        private val ioScheduler: Scheduler,
-        private val uiScheduler: Scheduler) {
+class BuzzDomainModule {
 
     @Provides @PerActivity
     fun provideBuzzUseCase(buzzRepository: BuzzRepository): BuzzUseCase
-            = BuzzUseCase(buzzRepository, ioScheduler, uiScheduler)
+            = BuzzUseCase(buzzRepository)
 
 }

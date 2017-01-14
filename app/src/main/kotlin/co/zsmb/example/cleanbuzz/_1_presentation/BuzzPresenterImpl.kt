@@ -4,18 +4,23 @@ import android.content.Context
 import co.zsmb.example.cleanbuzz.R
 import co.zsmb.example.cleanbuzz._1_presentation.base.BasePresenter
 import co.zsmb.example.cleanbuzz._2_domain.BuzzUseCase
+import rx.Scheduler
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 import javax.inject.Inject
 
 class BuzzPresenterImpl @Inject constructor(
         private val context: Context,
-        private val buzzUseCase: BuzzUseCase)
+        private val buzzUseCase: BuzzUseCase,
+        private val ioScheduler: Scheduler,
+        private val mainScheduler: Scheduler)
     : BasePresenter<BuzzView>(), BuzzPresenter {
 
     private var lastResult = PresentableResult.EMPTY
 
     override fun bind(view: BuzzView) {
         super.bind(view)
-        //updateView()
+        updateView()
     }
 
     override fun onTerminate() {
@@ -49,8 +54,7 @@ class BuzzPresenterImpl @Inject constructor(
     }
 
     private fun executeUseCase(number: Int) {
-        buzzUseCase.number = number
-        buzzUseCase.execute()
+        buzzUseCase.execute(worker = ioScheduler, observer = mainScheduler, params = number)
                 .map { PresentableResult(it.result) }
                 .subscribe(
                         { it ->
