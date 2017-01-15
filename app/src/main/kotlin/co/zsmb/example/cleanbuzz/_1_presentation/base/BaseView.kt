@@ -65,6 +65,9 @@ abstract class BaseView<P : LifecycleObserver> : AppCompatActivity() {
             presenter.onInit()
         }
         else {
+            // the object stored can only be put there by our own
+            // onRetainCustomNonConfigurationInstance method, and is always
+            // of type P or is null
             @Suppress("UNCHECKED_CAST")
             presenter = oldPresenter as P
         }
