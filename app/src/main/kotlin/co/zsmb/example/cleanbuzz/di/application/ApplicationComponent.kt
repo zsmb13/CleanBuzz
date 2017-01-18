@@ -1,7 +1,7 @@
 package co.zsmb.example.cleanbuzz.di.application
 
 import android.content.Context
-import co.zsmb.example.cleanbuzz._2_domain.BuzzRepository
+import co.zsmb.example.cleanbuzz.domain.BuzzRepository
 import dagger.Component
 import javax.inject.Singleton
 

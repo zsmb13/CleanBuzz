@@ -12,7 +12,7 @@
         android:name=".di.application.BuzzApplication"
         android:theme="@style/AppTheme">
 
-        <activity android:name="._1_presentation.BuzzActivity">
+        <activity android:name=".presentation.BuzzActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

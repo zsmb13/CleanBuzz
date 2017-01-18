@@ -1,7 +1,7 @@
 package co.zsmb.example.cleanbuzz.di.activity
 
-import co.zsmb.example.cleanbuzz._2_domain.BuzzRepository
-import co.zsmb.example.cleanbuzz._2_domain.BuzzUseCase
+import co.zsmb.example.cleanbuzz.domain.BuzzRepository
+import co.zsmb.example.cleanbuzz.domain.BuzzUseCase
 import dagger.Module
 import dagger.Provides
 import rx.Scheduler

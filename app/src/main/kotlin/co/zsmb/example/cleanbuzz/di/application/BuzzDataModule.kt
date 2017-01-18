@@ -1,7 +1,7 @@
 package co.zsmb.example.cleanbuzz.di.application
 
-import co.zsmb.example.cleanbuzz._2_domain.BuzzRepository
-import co.zsmb.example.cleanbuzz._3_data.*
+import co.zsmb.example.cleanbuzz.domain.BuzzRepository
+import co.zsmb.example.cleanbuzz.data.*
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -11,14 +11,14 @@ import javax.inject.Singleton
 class BuzzDataModule {
 
     @Provides @Singleton
-    fun provideBuzzRepository(memoryDataSource: BuzzDataSourceMemory,
-                              networkDataSource: BuzzDataSourceNetwork): BuzzRepository
-            = BuzzRepositoryImpl(memoryDataSource, networkDataSource)
+    fun provideBuzzRepository(memoryDataSource: co.zsmb.example.cleanbuzz.data.BuzzDataSourceMemory,
+                              networkDataSource: co.zsmb.example.cleanbuzz.data.BuzzDataSourceNetwork): BuzzRepository
+            = co.zsmb.example.cleanbuzz.data.BuzzRepositoryImpl(memoryDataSource, networkDataSource)
 
     @Provides @Singleton
-    fun provideBuzzDataSourceNetwork(retrofit: Retrofit) = BuzzDataSourceNetwork(retrofit)
+    fun provideBuzzDataSourceNetwork(retrofit: Retrofit) = co.zsmb.example.cleanbuzz.data.BuzzDataSourceNetwork(retrofit)
 
     @Provides @Singleton
-    fun provideBuzzDataSourceMemory() = BuzzDataSourceMemory()
+    fun provideBuzzDataSourceMemory() = co.zsmb.example.cleanbuzz.data.BuzzDataSourceMemory()
 
 }

@@ -1,0 +1,37 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+buildscript {
+    ext.kotlin_version = '1.0.6'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    /* Kotlin */
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    /* RxJava */
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxkotlin:0.60.0'
+
+    /* DI */
+    compile 'javax.inject:javax.inject:1'
+}
+
+targetCompatibility = '1.7'
+sourceCompatibility = '1.7'
