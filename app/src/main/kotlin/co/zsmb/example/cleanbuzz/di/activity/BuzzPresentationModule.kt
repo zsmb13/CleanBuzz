@@ -1,9 +1,9 @@
 package co.zsmb.example.cleanbuzz.di.activity
 
 import android.content.Context
+import co.zsmb.example.cleanbuzz.domain.BuzzUseCase
 import co.zsmb.example.cleanbuzz.presentation.BuzzPresenter
 import co.zsmb.example.cleanbuzz.presentation.BuzzPresenterImpl
-import co.zsmb.example.cleanbuzz.domain.BuzzUseCase
 import dagger.Module
 import dagger.Provides
 import rx.android.schedulers.AndroidSchedulers

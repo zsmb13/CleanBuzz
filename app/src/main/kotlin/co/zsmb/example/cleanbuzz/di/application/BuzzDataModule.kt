@@ -1,7 +1,6 @@
 package co.zsmb.example.cleanbuzz.di.application
 
 import co.zsmb.example.cleanbuzz.domain.BuzzRepository
-import co.zsmb.example.cleanbuzz.data.*
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

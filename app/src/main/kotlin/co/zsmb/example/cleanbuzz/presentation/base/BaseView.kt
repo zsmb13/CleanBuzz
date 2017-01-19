@@ -3,11 +3,8 @@ package co.zsmb.example.cleanbuzz.presentation.base
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import co.zsmb.example.cleanbuzz.di.activity.ActivityComponent
-import co.zsmb.example.cleanbuzz.di.activity.BuzzDomainModule
 import co.zsmb.example.cleanbuzz.di.activity.DaggerActivityComponent
 import co.zsmb.example.cleanbuzz.di.application.BuzzApplication
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 
 abstract class BaseView<P : LifecycleObserver> : AppCompatActivity() {
 
@@ -46,7 +43,7 @@ abstract class BaseView<P : LifecycleObserver> : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if(!isChangingConfigurations) {
+        if (!isChangingConfigurations) {
             presenter.onTerminate()
         }
     }

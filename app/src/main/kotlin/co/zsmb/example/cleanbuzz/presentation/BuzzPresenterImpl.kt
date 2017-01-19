@@ -2,8 +2,8 @@ package co.zsmb.example.cleanbuzz.presentation
 
 import android.content.Context
 import co.zsmb.example.cleanbuzz.R
-import co.zsmb.example.cleanbuzz.presentation.base.BasePresenter
 import co.zsmb.example.cleanbuzz.domain.BuzzUseCase
+import co.zsmb.example.cleanbuzz.presentation.base.BasePresenter
 import rx.Scheduler
 import javax.inject.Inject
 

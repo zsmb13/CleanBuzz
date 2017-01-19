@@ -4,7 +4,6 @@ import co.zsmb.example.cleanbuzz.domain.BuzzRepository
 import co.zsmb.example.cleanbuzz.domain.BuzzUseCase
 import dagger.Module
 import dagger.Provides
-import rx.Scheduler
 
 @Module
 class BuzzDomainModule {

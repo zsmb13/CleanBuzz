@@ -2,7 +2,6 @@ package co.zsmb.example.cleanbuzz.presentation
 
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Debug
 import android.view.Menu
 import android.view.MenuItem
 import co.zsmb.example.cleanbuzz.BuildConfig
@@ -34,7 +33,7 @@ class BuzzActivity : BaseView<BuzzPresenter>(), BuzzView {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             menuInflater.inflate(R.menu.menu_main, menu)
             return true
         }
@@ -42,7 +41,7 @@ class BuzzActivity : BaseView<BuzzPresenter>(), BuzzView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             if (item.itemId == R.id.action_new_activity) {
                 startActivity(intentFor<BuzzActivity>())
                 return true
