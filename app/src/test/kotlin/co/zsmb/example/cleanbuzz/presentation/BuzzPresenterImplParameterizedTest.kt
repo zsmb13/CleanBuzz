@@ -39,13 +39,11 @@ class BuzzPresenterImplParameterizedTest(val input: String) {
 
     @Test
     fun requestNumberWithValidValue_showsResultInView() {
-        whenever(usecase.execute(any(), any(), any())) doReturn Observable.just(BuzzResult(input))
+        whenever(usecase.execute(any(), any())) doReturn Observable.just(BuzzResult(input))
 
         buzzPresenter.requestNumber(input)
 
-        verify(view).showResult(eq(
-                PresentableResult(result = input, isError = false)
-        ))
+        verify(view).showResult(PresentableResult(result = input, isError = false))
     }
 
     companion object {
