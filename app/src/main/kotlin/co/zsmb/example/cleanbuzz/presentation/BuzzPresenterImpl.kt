@@ -12,28 +12,35 @@ class BuzzPresenterImpl @Inject constructor(
         private val buzzUseCase: BuzzUseCase,
         private val ioScheduler: Scheduler,
         private val mainScheduler: Scheduler)
-    : BasePresenter<BuzzView>(), BuzzPresenter {
+    : BasePresenter<BuzzView>(useCases = listOf(buzzUseCase)),
+        BuzzPresenter {
 
-    private var lastResult = PresentableResult.EMPTY
+    private var lastResult: PresentableResult = PresentableResult.EMPTY
+    private var requestPending = false
 
-    override fun bind(view: BuzzView) {
-        super.bind(view)
-        updateView()
+    override fun restoreViewState() {
+        showLastResult()
     }
 
-    override fun onTerminate() {
-        super.onTerminate()
-        buzzUseCase.unsubscribe()
+    private fun showLastResult() {
+        println("Showing $lastResult")
+        view?.showResult(lastResult)
     }
 
     override fun requestNumber(numberText: String) {
+        if (requestPending) {
+            return
+        }
+
         val number = checkInput(numberText)
 
         if (number != null) {
             executeUseCase(number)
         }
         else {
-            displayError(context.getString(R.string.error_number_info))
+            println("Showing error")
+            lastResult = PresentableResult(context.getString(R.string.error_number_info), isError = true)
+            showLastResult()
         }
     }
 
@@ -52,26 +59,28 @@ class BuzzPresenterImpl @Inject constructor(
     }
 
     private fun executeUseCase(number: Int) {
-        buzzUseCase.execute(worker = ioScheduler, observer = mainScheduler, params = number)
+        requestPending = true
+
+        buzzUseCase.execute(worker = ioScheduler, params = number)
                 .map { PresentableResult(it.result) }
+                .observeOn(mainScheduler)
                 .subscribe(
                         { it ->
                             lastResult = it
-                            updateView()
+                            showLastResult()
                         },
                         { error ->
-                            displayError(error.message ?: context.getString(R.string.error_network))
+                            lastResult =
+                                    PresentableResult(
+                                            error.message ?: context.getString(R.string.error_unknown),
+                                            isError = true
+                                    )
+                            showLastResult()
+                        },
+                        {
+                            requestPending = false
                         }
                 )
-    }
-
-    private fun displayError(message: String = context.getString(R.string.error_unknown)) {
-        lastResult = PresentableResult(message, isError = true)
-        updateView()
-    }
-
-    private fun updateView() {
-        view?.showResult(lastResult)
     }
 
 }

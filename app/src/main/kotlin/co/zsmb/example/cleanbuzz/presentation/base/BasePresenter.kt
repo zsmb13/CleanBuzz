@@ -1,11 +1,16 @@
 package co.zsmb.example.cleanbuzz.presentation.base
 
-abstract class BasePresenter<V : Any> : Presenter<V> {
+import co.zsmb.example.cleanbuzz.domain.base.Cancellable
+
+abstract class BasePresenter<V : Any>(val useCases: List<Cancellable>) : Presenter<V> {
 
     protected var view: V? = null
 
+    abstract fun restoreViewState()
+
     override fun bind(view: V) {
         this.view = view
+        restoreViewState()
     }
 
     override fun unbind() {
@@ -13,6 +18,7 @@ abstract class BasePresenter<V : Any> : Presenter<V> {
     }
 
     override fun onTerminate() {
+        useCases.forEach { it.cancel() }
         unbind()
     }
 
