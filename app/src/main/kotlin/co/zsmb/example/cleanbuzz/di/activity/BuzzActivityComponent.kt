@@ -11,7 +11,7 @@ import dagger.Component
                 BuzzPresentationModule::class,
                 BuzzDomainModule::class
         ))
-interface ActivityComponent {
+interface BuzzActivityComponent {
 
     fun makeBuzzPresenter(): BuzzPresenter
 

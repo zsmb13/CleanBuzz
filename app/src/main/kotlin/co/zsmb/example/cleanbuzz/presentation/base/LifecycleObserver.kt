@@ -7,7 +7,6 @@ interface LifecycleObserver {
     fun onPause()
     fun onStop()
 
-    fun onInit()
     fun onTerminate()
 
 }

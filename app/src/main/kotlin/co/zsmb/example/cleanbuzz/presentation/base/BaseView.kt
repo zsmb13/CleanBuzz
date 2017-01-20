@@ -2,17 +2,16 @@ package co.zsmb.example.cleanbuzz.presentation.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import co.zsmb.example.cleanbuzz.di.activity.ActivityComponent
-import co.zsmb.example.cleanbuzz.di.activity.DaggerActivityComponent
-import co.zsmb.example.cleanbuzz.di.application.BuzzApplication
 
-abstract class BaseView<P : LifecycleObserver> : AppCompatActivity() {
+abstract class BaseView<P : LifecycleObserver, C : Any> : AppCompatActivity() {
 
     protected lateinit var presenter: P
 
-    protected lateinit var activityComponent: ActivityComponent
+    protected lateinit var activityComponent: C
 
     protected abstract fun createPresenter(): P
+
+    protected abstract fun createComponent(): C
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,27 +48,24 @@ abstract class BaseView<P : LifecycleObserver> : AppCompatActivity() {
     }
 
     private fun initActivityComponent() {
-        activityComponent = DaggerActivityComponent.builder()
-                .applicationComponent(BuzzApplication.applicationComponent)
-                .build()
-    }
+        val oldComponent = lastCustomNonConfigurationInstance
 
-    private fun initPresenter() {
-        val oldPresenter = lastCustomNonConfigurationInstance
-
-        if (oldPresenter == null) {
-            presenter = createPresenter()
-            presenter.onInit()
+        if (oldComponent == null) {
+            activityComponent = createComponent()
         }
         else {
             // The object stored can only be put there by our own
             // onRetainCustomNonConfigurationInstance method, and
-            // is always of type P or is null
+            // is always of type C or is null
             @Suppress("UNCHECKED_CAST")
-            presenter = oldPresenter as P
+            activityComponent = oldComponent as C
         }
     }
 
-    final override fun onRetainCustomNonConfigurationInstance() = presenter
+    private fun initPresenter() {
+        presenter = createPresenter()
+    }
+
+    final override fun onRetainCustomNonConfigurationInstance() = activityComponent
 
 }

@@ -20,8 +20,6 @@ abstract class BasePresenter<V : Any>
         unbind()
     }
 
-    override fun onInit() {}
-
     override fun onStart() {}
     override fun onPause() {}
     override fun onResume() {}

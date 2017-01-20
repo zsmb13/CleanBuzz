@@ -2,22 +2,31 @@ package co.zsmb.example.cleanbuzz.presentation
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import co.zsmb.example.cleanbuzz.BuildConfig
 import co.zsmb.example.cleanbuzz.R
+import co.zsmb.example.cleanbuzz.di.activity.BuzzActivityComponent
+import co.zsmb.example.cleanbuzz.di.activity.DaggerBuzzActivityComponent
+import co.zsmb.example.cleanbuzz.di.application.BuzzApplication
 import co.zsmb.example.cleanbuzz.presentation.base.BaseView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.textColor
 
-class BuzzActivity : BaseView<BuzzPresenter>(), BuzzView {
+class BuzzActivity : BaseView<BuzzPresenter, BuzzActivityComponent>(), BuzzView {
 
     companion object {
         val warningColor = Color.RED
         val resultColor = Color.GRAY
     }
+
+    override fun createComponent(): BuzzActivityComponent
+            = DaggerBuzzActivityComponent.builder()
+            .applicationComponent(BuzzApplication.applicationComponent)
+            .build()
 
     override fun createPresenter() = activityComponent.makeBuzzPresenter()
 
@@ -28,6 +37,7 @@ class BuzzActivity : BaseView<BuzzPresenter>(), BuzzView {
         presenter.bind(this)
 
         btnBuzz.onClick {
+            Log.d("TEST", "bugging $presenter")
             presenter.requestNumber(etNumber.text.toString())
         }
     }
