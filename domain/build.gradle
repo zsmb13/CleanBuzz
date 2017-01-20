@@ -10,26 +10,25 @@ buildscript {
     }
 }
 
-repositories {
-    mavenCentral()
-}
-
 sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
 }
 
 dependencies {
+    def dependencies = rootProject.ext.domainDependencies
+
+    /* Defaults */
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     /* Kotlin */
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile dependencies.kotlin
 
-    /* RxJava */
-    compile 'io.reactivex:rxjava:1.1.6'
-    compile 'io.reactivex:rxkotlin:0.60.0'
+    /* Rx */
+    compile dependencies.rxJava
+    compile dependencies.rxKotlin
 
     /* DI */
-    compile 'javax.inject:javax.inject:1'
+    compile dependencies.javaxInject
 }
 
 targetCompatibility = '1.7'

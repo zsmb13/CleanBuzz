@@ -32,43 +32,44 @@ kapt {
     generateStubs = true
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
+
+    def dependencies = rootProject.ext.presentationDependencies
+
     /* Defaults */
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    /* Android libs */
-    compile 'com.android.support:appcompat-v7:25.1.0'
-
-    /* Tests */
-    testCompile 'junit:junit:4.12'
-
-    /* Android Tests */
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-
-    /* Mockito */
-    testCompile "org.mockito:mockito-core:2.6.3"
-    testCompile "com.nhaarman:mockito-kotlin:1.1.0"
-
-    /* Kotlin */
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile "org.jetbrains.anko:anko-sdk15:0.9"
-    compile "org.jetbrains.anko:anko-appcompat-v7:0.9"
-
-    /* RxJava */
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.6'
-    compile 'io.reactivex:rxkotlin:0.60.0'
-
-    /* Dagger */
-    compile "com.google.dagger:dagger:2.8"
-    kapt "com.google.dagger:dagger-compiler:2.8"
-
+    /* Modules */
     compile project(path: ':domain')
     compile project(path: ':data')
+
+    /* Android libs */
+    compile dependencies.appcompatSupport
+
+    /* Kotlin */
+    compile dependencies.kotlin
+    compile dependencies.anko
+    compile dependencies.ankoAppCompat
+
+    /* Rx */
+    compile dependencies.rxJava
+    compile dependencies.rxAndroid
+    compile dependencies.rxKotlin
+
+    /* Dagger */
+    compile dependencies.dagger
+    kapt dependencies.daggerCompiler
+
+    /* Tests */
+    testCompile dependencies.junit
+
+    /* Android Tests */
+    /*androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })*/
+
+    /* Mockito */
+    testCompile dependencies.mockitoCore
+    testCompile dependencies.mockitoKotlin
+
 }
