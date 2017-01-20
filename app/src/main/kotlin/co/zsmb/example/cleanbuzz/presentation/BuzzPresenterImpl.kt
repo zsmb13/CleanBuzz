@@ -5,6 +5,7 @@ import co.zsmb.example.cleanbuzz.R
 import co.zsmb.example.cleanbuzz.domain.BuzzUseCase
 import co.zsmb.example.cleanbuzz.presentation.base.BasePresenter
 import rx.Scheduler
+import rx.Subscription
 import javax.inject.Inject
 
 class BuzzPresenterImpl @Inject constructor(
@@ -12,33 +13,27 @@ class BuzzPresenterImpl @Inject constructor(
         private val buzzUseCase: BuzzUseCase,
         private val ioScheduler: Scheduler,
         private val mainScheduler: Scheduler)
-    : BasePresenter<BuzzView>(useCases = listOf(buzzUseCase)),
+    : BasePresenter<BuzzView>(),
         BuzzPresenter {
 
     private var lastResult: PresentableResult = PresentableResult.EMPTY
-    private var requestPending = false
+    private var subscription: Subscription? = null
 
     override fun restoreViewState() {
         showLastResult()
     }
 
     private fun showLastResult() {
-        println("Showing $lastResult")
         view?.showResult(lastResult)
     }
 
     override fun requestNumber(numberText: String) {
-        if (requestPending) {
-            return
-        }
-
         val number = checkInput(numberText)
 
         if (number != null) {
             executeUseCase(number)
         }
         else {
-            println("Showing error")
             lastResult = PresentableResult(context.getString(R.string.error_number_info), isError = true)
             showLastResult()
         }
@@ -47,21 +42,23 @@ class BuzzPresenterImpl @Inject constructor(
     private fun checkInput(numberString: String): Int? {
         if (numberString.isBlank()) return null
 
-        val number: Int
+        val number: Int = numberString.toIntOrNull() ?: return null
 
+        return if (number in 1..999) number else null
+    }
+
+    private fun String.toIntOrNull(): Int? {
         try {
-            number = numberString.toInt()
+            return this.toInt()
         } catch (e: NumberFormatException) {
             return null
         }
-
-        return if (number > 0 && number < 1000) number else null
     }
 
     private fun executeUseCase(number: Int) {
-        requestPending = true
+        subscription?.let { it.unsubscribe() }
 
-        buzzUseCase.execute(worker = ioScheduler, params = number)
+        subscription = buzzUseCase.execute(worker = ioScheduler, params = number)
                 .map { PresentableResult(it.result) }
                 .observeOn(mainScheduler)
                 .subscribe(
@@ -76,11 +73,17 @@ class BuzzPresenterImpl @Inject constructor(
                                             isError = true
                                     )
                             showLastResult()
+                            subscription = null
                         },
                         {
-                            requestPending = false
+                            subscription = null
                         }
                 )
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        subscription?.unsubscribe()
     }
 
 }

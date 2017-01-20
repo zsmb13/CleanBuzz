@@ -50,11 +50,6 @@ class BuzzActivity : BaseView<BuzzPresenter>(), BuzzView {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onDestroy() {
-        presenter.unbind()
-        super.onDestroy()
-    }
-
     override fun showResult(result: PresentableResult) {
         tvResult.text = result.result
         tvResult.textColor = if (result.isError) warningColor else resultColor
