@@ -1,9 +1,9 @@
 package co.zsmb.example.cleanbuzz.data
 
+import io.reactivex.Observable
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import rx.Observable
 import java.util.*
 
 class BuzzDataSourceMemoryTest {
@@ -67,13 +67,13 @@ class BuzzDataSourceMemoryTest {
 
     fun Observable<List<String>>.empty(): Boolean {
         try {
-            this.toBlocking().first()
+            this.blockingFirst()
             return false
         } catch (e: NoSuchElementException) {
             return true
         }
     }
 
-    fun Observable<List<String>>.getData(): String = toBlocking().first().first()
+    fun Observable<List<String>>.getData(): String = blockingFirst().first()
 
 }

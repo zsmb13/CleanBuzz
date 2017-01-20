@@ -1,6 +1,6 @@
 package co.zsmb.example.cleanbuzz.data
 
-import rx.Observable
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class BuzzRepositoryImpl

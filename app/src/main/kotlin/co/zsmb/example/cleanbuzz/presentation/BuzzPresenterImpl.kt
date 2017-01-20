@@ -4,8 +4,8 @@ import android.content.Context
 import co.zsmb.example.cleanbuzz.R
 import co.zsmb.example.cleanbuzz.domain.BuzzUseCase
 import co.zsmb.example.cleanbuzz.presentation.base.BasePresenter
-import rx.Scheduler
-import rx.Subscription
+import io.reactivex.Scheduler
+import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class BuzzPresenterImpl @Inject constructor(
@@ -17,7 +17,7 @@ class BuzzPresenterImpl @Inject constructor(
         BuzzPresenter {
 
     private var lastResult: PresentableResult = PresentableResult.EMPTY
-    private var subscription: Subscription? = null
+    private var subscription: Disposable? = null
 
     override fun restoreViewState() {
         showLastResult()
@@ -56,7 +56,7 @@ class BuzzPresenterImpl @Inject constructor(
     }
 
     private fun executeUseCase(number: Int) {
-        subscription?.let { it.unsubscribe() }
+        subscription?.let { it.dispose() }
 
         subscription = buzzUseCase.execute(worker = ioScheduler, params = number)
                 .map { PresentableResult(it.result) }
@@ -83,7 +83,7 @@ class BuzzPresenterImpl @Inject constructor(
 
     override fun onTerminate() {
         super.onTerminate()
-        subscription?.unsubscribe()
+        subscription?.dispose()
     }
 
 }

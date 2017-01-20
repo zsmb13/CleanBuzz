@@ -1,6 +1,6 @@
 package co.zsmb.example.cleanbuzz.data
 
-import rx.Observable
+import io.reactivex.Observable
 
 interface BuzzDataSource {
 

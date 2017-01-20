@@ -1,7 +1,7 @@
 package co.zsmb.example.cleanbuzz.domain.base
 
-import rx.Observable
-import rx.Scheduler
+import io.reactivex.Observable
+import io.reactivex.Scheduler
 
 abstract class UseCase<T, in P> {
 

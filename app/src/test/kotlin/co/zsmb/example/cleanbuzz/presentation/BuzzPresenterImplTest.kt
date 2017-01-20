@@ -4,14 +4,17 @@ import android.content.Context
 import co.zsmb.example.cleanbuzz.R
 import co.zsmb.example.cleanbuzz.domain.BuzzResult
 import co.zsmb.example.cleanbuzz.domain.BuzzUseCase
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import rx.Observable
-import rx.schedulers.Schedulers
 
 @RunWith(MockitoJUnitRunner::class)
 class BuzzPresenterImplTest {
@@ -33,8 +36,8 @@ class BuzzPresenterImplTest {
         buzzPresenter = BuzzPresenterImpl(
                 context = context,
                 buzzUseCase = usecase,
-                ioScheduler = Schedulers.immediate(),
-                mainScheduler = Schedulers.immediate())
+                ioScheduler = Schedulers.trampoline(),
+                mainScheduler = Schedulers.trampoline())
 
         buzzPresenter.bind(view)
     }

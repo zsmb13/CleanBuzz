@@ -1,7 +1,7 @@
 package co.zsmb.example.cleanbuzz.data
 
+import io.reactivex.Observable
 import retrofit2.Retrofit
-import rx.Observable
 import javax.inject.Inject
 
 class BuzzDataSourceNetwork @Inject constructor(retrofit: Retrofit) : BuzzDataSource {

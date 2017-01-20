@@ -13,18 +13,24 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
 
         test {
             java.srcDirs = ['src/test/kotlin']
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
     }
 }
 
@@ -44,7 +50,7 @@ dependencies {
     compile project(path: ':data')
 
     /* Android libs */
-    compile dependencies.appcompatSupport
+    compile dependencies.appcompat
 
     /* Kotlin */
     compile dependencies.kotlin

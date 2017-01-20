@@ -3,13 +3,13 @@ package co.zsmb.example.cleanbuzz.data
 import co.zsmb.example.cleanbuzz.domain.BuzzRepository
 import co.zsmb.example.cleanbuzz.domain.BuzzResult
 import com.nhaarman.mockito_kotlin.*
+import io.reactivex.Observable
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import rx.Observable
 
 @RunWith(MockitoJUnitRunner::class)
 class BuzzRepositoryImplTest {
@@ -68,6 +68,6 @@ class BuzzRepositoryImplTest {
         verify(memoryDataSource).cacheResults(listOf(NETWORK_RESULT))
     }
 
-    fun Observable<BuzzResult>.getData(): String = toBlocking().first().result
+    fun Observable<BuzzResult>.getData(): String = blockingFirst().result
 
 }

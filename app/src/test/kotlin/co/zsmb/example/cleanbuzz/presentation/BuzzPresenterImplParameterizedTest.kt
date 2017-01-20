@@ -3,6 +3,8 @@ package co.zsmb.example.cleanbuzz.presentation
 import co.zsmb.example.cleanbuzz.domain.BuzzResult
 import co.zsmb.example.cleanbuzz.domain.BuzzUseCase
 import com.nhaarman.mockito_kotlin.*
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -11,8 +13,6 @@ import org.junit.runners.Parameterized
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
-import rx.Observable
-import rx.schedulers.Schedulers
 
 /* This tests that values that are in the valid range are accepted by the Presenter
  * and it fetches results for them from the UseCase as expected */
@@ -31,8 +31,8 @@ class BuzzPresenterImplParameterizedTest(val input: String) {
         buzzPresenter = BuzzPresenterImpl(
                 context = mock(),
                 buzzUseCase = usecase,
-                ioScheduler = Schedulers.immediate(),
-                mainScheduler = Schedulers.immediate())
+                ioScheduler = Schedulers.trampoline(),
+                mainScheduler = Schedulers.trampoline())
 
         buzzPresenter.bind(view)
     }

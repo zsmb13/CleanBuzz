@@ -21,6 +21,10 @@ android {
             java.srcDirs = ['src/test/kotlin']
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
 }
 
 buildscript {
