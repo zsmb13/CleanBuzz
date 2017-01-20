@@ -2,7 +2,6 @@ package co.zsmb.example.cleanbuzz.presentation
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import co.zsmb.example.cleanbuzz.BuildConfig
@@ -37,7 +36,6 @@ class BuzzActivity : BaseView<BuzzPresenter, BuzzActivityComponent>(), BuzzView 
         presenter.bind(this)
 
         btnBuzz.onClick {
-            Log.d("TEST", "bugging $presenter")
             presenter.requestNumber(etNumber.text.toString())
         }
     }
