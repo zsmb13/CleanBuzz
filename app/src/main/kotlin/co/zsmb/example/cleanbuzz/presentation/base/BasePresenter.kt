@@ -1,28 +1,30 @@
 package co.zsmb.example.cleanbuzz.presentation.base
 
+import io.reactivex.disposables.Disposable
+
 abstract class BasePresenter<V : Any>
     : Presenter<V> {
 
     protected var view: V? = null
 
-    abstract fun restoreViewState()
+    protected val subscriptions = mutableListOf<Disposable>()
 
     override fun bind(view: V) {
         this.view = view
-        restoreViewState()
     }
 
     override fun unbind() {
         this.view = null
     }
 
-    override fun onTerminate() {
-        unbind()
+    private fun cancelSubscriptions() {
+        subscriptions.filter { !it.isDisposed }.forEach { it.dispose() }
+        subscriptions.clear()
     }
 
-    override fun onStart() {}
-    override fun onPause() {}
-    override fun onResume() {}
-    override fun onStop() {}
+    final override fun onTerminate() {
+        cancelSubscriptions()
+        unbind()
+    }
 
 }

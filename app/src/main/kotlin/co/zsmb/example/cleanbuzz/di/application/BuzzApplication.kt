@@ -6,6 +6,7 @@ class BuzzApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(ApplicationModule(this))
                 .retrofitModule(RetrofitModule(baseURL))
@@ -13,9 +14,11 @@ class BuzzApplication : Application() {
     }
 
     companion object {
+
         private val baseURL = "https://api.buzzcloud.xyz"
 
         lateinit var applicationComponent: ApplicationComponent
+
     }
 
 }

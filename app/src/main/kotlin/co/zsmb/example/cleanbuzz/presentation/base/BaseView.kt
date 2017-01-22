@@ -2,49 +2,21 @@ package co.zsmb.example.cleanbuzz.presentation.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import co.zsmb.example.cleanbuzz.di.base.ActivityComponent
 
-abstract class BaseView<P : LifecycleObserver, C : Any> : AppCompatActivity() {
+abstract class BaseView<PR : Terminable, AC : ActivityComponent<PR>> : AppCompatActivity(), NavigableView {
 
-    protected lateinit var presenter: P
+    protected lateinit var activityComponent: AC
 
-    protected lateinit var activityComponent: C
+    protected lateinit var presenter: PR
 
-    protected abstract fun createPresenter(): P
-
-    protected abstract fun createComponent(): C
+    protected abstract fun createComponent(): AC
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initActivityComponent()
         initPresenter()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        presenter.onStart()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        presenter.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        presenter.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        presenter.onStop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (!isChangingConfigurations) {
-            presenter.onTerminate()
-        }
     }
 
     private fun initActivityComponent() {
@@ -58,14 +30,21 @@ abstract class BaseView<P : LifecycleObserver, C : Any> : AppCompatActivity() {
             // onRetainCustomNonConfigurationInstance method, and
             // is always of type C or is null
             @Suppress("UNCHECKED_CAST")
-            activityComponent = oldComponent as C
+            activityComponent = oldComponent as AC
         }
     }
 
+    final override fun onRetainCustomNonConfigurationInstance() = activityComponent
+
     private fun initPresenter() {
-        presenter = createPresenter()
+        presenter = activityComponent.createPresenter()
     }
 
-    final override fun onRetainCustomNonConfigurationInstance() = activityComponent
+    override fun onDestroy() {
+        super.onDestroy()
+        if (!isChangingConfigurations) {
+            presenter.onTerminate()
+        }
+    }
 
 }

@@ -1,30 +1,25 @@
-package co.zsmb.example.cleanbuzz.presentation
+package co.zsmb.example.cleanbuzz.presentation.buzz
 
 import android.content.Context
 import co.zsmb.example.cleanbuzz.R
-import co.zsmb.example.cleanbuzz.domain.BuzzUseCase
+import co.zsmb.example.cleanbuzz.domain.usecase.BuzzUseCase
 import co.zsmb.example.cleanbuzz.presentation.base.BasePresenter
 import io.reactivex.Scheduler
-import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class BuzzPresenterImpl @Inject constructor(
         private val context: Context,
         private val buzzUseCase: BuzzUseCase,
-        private val ioScheduler: Scheduler,
         private val mainScheduler: Scheduler)
     : BasePresenter<BuzzView>(),
         BuzzPresenter {
 
-    private var lastResult: PresentableResult = PresentableResult.EMPTY
-    private var subscription: Disposable? = null
-
-    override fun restoreViewState() {
-        showLastResult()
+    private val numberError by lazy {
+        PresentableResult(context.getString(R.string.error_number_info), isError = true)
     }
 
-    private fun showLastResult() {
-        view?.showResult(lastResult)
+    private fun showResult(result: PresentableResult) {
+        view?.showResult(result)
     }
 
     override fun requestNumber(numberText: String) {
@@ -34,8 +29,7 @@ class BuzzPresenterImpl @Inject constructor(
             executeUseCase(number)
         }
         else {
-            lastResult = PresentableResult(context.getString(R.string.error_number_info), isError = true)
-            showLastResult()
+            showResult(numberError)
         }
     }
 
@@ -56,34 +50,22 @@ class BuzzPresenterImpl @Inject constructor(
     }
 
     private fun executeUseCase(number: Int) {
-        subscription?.let { it.dispose() }
-
-        subscription = buzzUseCase.execute(worker = ioScheduler, params = number)
+        subscriptions += buzzUseCase.execute(number)
                 .map { PresentableResult(it.result) }
                 .observeOn(mainScheduler)
                 .subscribe(
-                        { it ->
-                            lastResult = it
-                            showLastResult()
+                        { result ->
+                            showResult(result)
                         },
                         { error ->
-                            lastResult =
+                            val result =
                                     PresentableResult(
                                             error.message ?: context.getString(R.string.error_unknown),
                                             isError = true
                                     )
-                            showLastResult()
-                            subscription = null
-                        },
-                        {
-                            subscription = null
+                            showResult(result)
                         }
                 )
-    }
-
-    override fun onTerminate() {
-        super.onTerminate()
-        subscription?.dispose()
     }
 
 }

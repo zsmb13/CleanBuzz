@@ -1,7 +1,10 @@
 package co.zsmb.example.cleanbuzz.presentation
 
 import co.zsmb.example.cleanbuzz.domain.BuzzResult
-import co.zsmb.example.cleanbuzz.domain.BuzzUseCase
+import co.zsmb.example.cleanbuzz.domain.usecase.BuzzUseCase
+import co.zsmb.example.cleanbuzz.presentation.buzz.BuzzPresenterImpl
+import co.zsmb.example.cleanbuzz.presentation.buzz.BuzzView
+import co.zsmb.example.cleanbuzz.presentation.buzz.PresentableResult
 import com.nhaarman.mockito_kotlin.*
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
@@ -31,7 +34,6 @@ class BuzzPresenterImplParameterizedTest(val input: String) {
         buzzPresenter = BuzzPresenterImpl(
                 context = mock(),
                 buzzUseCase = usecase,
-                ioScheduler = Schedulers.trampoline(),
                 mainScheduler = Schedulers.trampoline())
 
         buzzPresenter.bind(view)
@@ -39,7 +41,7 @@ class BuzzPresenterImplParameterizedTest(val input: String) {
 
     @Test
     fun requestNumberWithValidValue_showsResultInView() {
-        whenever(usecase.execute(any(), any())) doReturn Observable.just(BuzzResult(input))
+        whenever(usecase.execute(any())) doReturn Observable.just(BuzzResult(input))
 
         buzzPresenter.requestNumber(input)
 

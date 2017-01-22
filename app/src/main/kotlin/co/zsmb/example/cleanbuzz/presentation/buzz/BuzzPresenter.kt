@@ -1,4 +1,4 @@
-package co.zsmb.example.cleanbuzz.presentation
+package co.zsmb.example.cleanbuzz.presentation.buzz
 
 import co.zsmb.example.cleanbuzz.presentation.base.Presenter
 

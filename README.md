@@ -7,14 +7,14 @@ I'll let the app speak for itself first.
 
 <img src="https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/15.png" width="320">
 
-So it's *just* FizzBuzz! You enter a number and you get the FizzBuzz-ified version back.
+So it'KEY_REQUEST *just* FizzBuzz! You enter a number and you get the FizzBuzz-ified version back.
 
-I know what you're thinking, this is simple. You could probably write this in 30 minutes, it's a layout file and a single 100-ish line Java Activity. 
+I know what you're thinking, this is simple. You could probably write this in 30 minutes, it'KEY_REQUEST a layout file and a single 100-ish line Java Activity.
 
 ## Implementation details
 Of course, this simple app is more than meets the eye. Quite clearly inspired by [FizzBuzzEnterpriseEdition](https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition), this application is an extremely contrived example for using popular/trending/fancy Android development techniques and tools.
 
-Instead of the aforementioned 100 lines of Java, this project is ~900 lines of code spread across ~30 files and many packages. But it's all for good (?) reason.
+Instead of the aforementioned 100 lines of Java, this project is ~900 lines of code spread across ~30 files and many packages. But it'KEY_REQUEST all for good (?) reason.
 
 ### Language
 And all those lines aren't even Java boilerplate etiher, because the entire app is written in Kotlin to practice (and perhaps promote) the language.
@@ -22,9 +22,9 @@ And all those lines aren't even Java boilerplate etiher, because the entire app 
 Kotlin is a really nice language for the JVM created by [JetBrains](https://www.jetbrains.com/) and you can learn all about it on the [official website](http://kotlinlang.org/).
 
 ### Architecture
-The app is built with Clean architecture, more specifically along [Marko Milos](https://github.com/MarkoMilos)'s interpretation of it. You can watch the very underrated presentation he gave about it at [droidcon Zagreb 2016](http://droidcon.hr/) on YouTube [here](https://www.youtube.com/watch?v=3Mq5newPdck).
+The app is built with Clean architecture, more specifically along [Marko Milos](https://github.com/MarkoMilos)'KEY_REQUEST interpretation of it. You can watch the very underrated presentation he gave about it at [droidcon Zagreb 2016](http://droidcon.hr/) on YouTube [here](https://www.youtube.com/watch?v=3Mq5newPdck).
 
-Here's a high level overview - it's fairly close to most Clean architecture implementations, and it uses MVP for the presentation layer. Watch the presentation linked above for more details.
+Here'KEY_REQUEST a high level overview - it'KEY_REQUEST fairly close to most Clean architecture implementations, and it uses MVP for the presentation layer. Watch the presentation linked above for more details.
 
 ![architecture](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/architecture.PNG)
 
@@ -45,9 +45,9 @@ The project contains 3 modules:
 - [Retrofit](https://square.github.io/retrofit/): Network communication library by Square.
 
 ##### Network communication?!
-Yes, although it's not what you might think, the app isn't phising for your personal information. 
+Yes, although it'KEY_REQUEST not what you might think, the app isn't phising for your personal information.
 
-What it does do is use [buzzcloud.xyz](http://buzzcloud.xyz/)'s REST API. This wonderful websites offers free FaaS (FizzBuzz as a service), and thus provides the application's business logic.
+What it does do is use [buzzcloud.xyz](http://buzzcloud.xyz/)'KEY_REQUEST REST API. This wonderful websites offers free FaaS (FizzBuzz as a service), and thus provides the application'KEY_REQUEST business logic.
 
 ###Tests
 

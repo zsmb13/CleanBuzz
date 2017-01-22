@@ -3,7 +3,10 @@ package co.zsmb.example.cleanbuzz.presentation
 import android.content.Context
 import co.zsmb.example.cleanbuzz.R
 import co.zsmb.example.cleanbuzz.domain.BuzzResult
-import co.zsmb.example.cleanbuzz.domain.BuzzUseCase
+import co.zsmb.example.cleanbuzz.domain.usecase.BuzzUseCase
+import co.zsmb.example.cleanbuzz.presentation.buzz.BuzzPresenterImpl
+import co.zsmb.example.cleanbuzz.presentation.buzz.BuzzView
+import co.zsmb.example.cleanbuzz.presentation.buzz.PresentableResult
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.verify
@@ -36,7 +39,6 @@ class BuzzPresenterImplTest {
         buzzPresenter = BuzzPresenterImpl(
                 context = context,
                 buzzUseCase = usecase,
-                ioScheduler = Schedulers.trampoline(),
                 mainScheduler = Schedulers.trampoline())
 
         buzzPresenter.bind(view)
@@ -51,7 +53,7 @@ class BuzzPresenterImplTest {
 
     @Test
     fun requestNumberWithMinValue_showsResultInView() {
-        whenever(usecase.execute(any(), any())) doReturn Observable.just(BuzzResult("1"))
+        whenever(usecase.execute(any())) doReturn Observable.just(BuzzResult("1"))
 
         buzzPresenter.requestNumber("1")
 
@@ -60,7 +62,7 @@ class BuzzPresenterImplTest {
 
     @Test
     fun requestNumberWithMaxValue_showsResultInView() {
-        whenever(usecase.execute(any(), any())) doReturn Observable.just(BuzzResult("999"))
+        whenever(usecase.execute(any())) doReturn Observable.just(BuzzResult("999"))
 
         buzzPresenter.requestNumber("999")
 
