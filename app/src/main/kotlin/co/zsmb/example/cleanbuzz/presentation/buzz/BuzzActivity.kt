@@ -20,7 +20,7 @@ class BuzzActivity : BaseView<BuzzPresenter, BuzzActivityComponent>(), BuzzView 
         private val KEY_REQUEST = "KEY_REQUEST"
     }
 
-    var lastRequest: String? = null
+    private var lastRequest: String? = null
 
     override fun createComponent(): BuzzActivityComponent
             = DaggerBuzzActivityComponent.builder()

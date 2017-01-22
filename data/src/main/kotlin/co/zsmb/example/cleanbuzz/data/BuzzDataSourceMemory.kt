@@ -4,7 +4,7 @@ import io.reactivex.Observable
 
 class BuzzDataSourceMemory : BuzzDataSourceWithCache {
 
-    val buzzResults = mutableListOf("0") // leading 0 for indexes to line up nicely
+    private val buzzResults = mutableListOf("0") // leading 0 for indexes to line up nicely
 
     override fun cacheResults(results: List<String>) {
         if (results.size < buzzResults.size) {

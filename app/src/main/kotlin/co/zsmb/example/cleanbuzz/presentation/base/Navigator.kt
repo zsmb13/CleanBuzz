@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import kotlin.reflect.KClass
 
-class Navigator(val context: Context) {
+class Navigator(private val context: Context) {
 
     private fun <T : NavigableView> createIntent(view: KClass<T>): Intent {
         val intent = Intent(context, view.java)

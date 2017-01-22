@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import co.zsmb.example.cleanbuzz.di.base.ActivityComponent
 
-abstract class BaseView<PR : Terminable, AC : ActivityComponent<PR>> : AppCompatActivity(), NavigableView {
+abstract class BaseView<PR : Terminable, out AC : ActivityComponent<PR>> : AppCompatActivity(), NavigableView {
 
-    protected lateinit var activityComponent: AC
+    private lateinit var activityComponent: AC
 
     protected lateinit var presenter: PR
 
