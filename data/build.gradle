@@ -20,6 +20,9 @@ android {
         test {
             java.srcDirs = ['src/test/kotlin']
         }
+        androidTest {
+            java.srcDirs = ['src/androidTest/kotlin']
+        }
     }
 
     packagingOptions {
@@ -28,7 +31,6 @@ android {
 }
 
 buildscript {
-    ext.kotlin_version = '1.0.6'
     repositories {
         mavenCentral()
     }
@@ -63,6 +65,9 @@ dependencies {
 
     /* Tests */
     testCompile dependencies.junit
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 
     /* Mockito */
     testCompile dependencies.mockitoCore
