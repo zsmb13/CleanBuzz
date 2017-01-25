@@ -17,54 +17,54 @@ class BuzzDataSourceMemoryTest {
 
     @Test
     fun requestWithBelowMinValue_returnsEmpty() {
-        val observable = buzzDataSourceMemory.getBuzz(0)
+        val result = buzzDataSourceMemory.getBuzz(0)
 
-        assert(observable.empty())
+        assert(result.isEmpty())
     }
 
     @Test
     fun requestWithAboveMaxValue_returnsEmpty() {
-        val observable = buzzDataSourceMemory.getBuzz(1000)
+        val result = buzzDataSourceMemory.getBuzz(1000)
 
-        assert(observable.empty())
+        assert(result.isEmpty())
     }
 
     @Test
     fun requestWithNegativeValue_returnsEmpty() {
-        val observable = buzzDataSourceMemory.getBuzz(-10)
+        val result = buzzDataSourceMemory.getBuzz(-10)
 
-        assert(observable.empty())
+        assert(result.isEmpty())
     }
 
     @Test
     fun requestForNonCachedData1_returnsEmpty() {
-        val observable = buzzDataSourceMemory.getBuzz(11)
+        val result = buzzDataSourceMemory.getBuzz(11)
 
-        assert(observable.empty())
+        assert(result.isEmpty())
     }
 
     @Test
     fun requestForNonCachedData2_returnsEmpty() {
-        val observable = buzzDataSourceMemory.getBuzz(200)
+        val result = buzzDataSourceMemory.getBuzz(200)
 
-        assert(observable.empty())
+        assert(result.isEmpty())
     }
 
     @Test
     fun requestForCachedData1_returnsCorrectData() {
-        val observable = buzzDataSourceMemory.getBuzz(5)
+        val result = buzzDataSourceMemory.getBuzz(5)
 
-        assertEquals("5", observable.getData())
+        assertEquals("5", result.getData())
     }
 
     @Test
     fun requestForCachedData2_returnsCorrectData() {
-        val observable = buzzDataSourceMemory.getBuzz(10)
+        val result = buzzDataSourceMemory.getBuzz(10)
 
-        assertEquals("10", observable.getData())
+        assertEquals("10", result.getData())
     }
 
-    fun Single<List<String>>.empty(): Boolean {
+    fun Single<List<String>>.isEmpty(): Boolean {
         try {
             blockingGet()
             return false

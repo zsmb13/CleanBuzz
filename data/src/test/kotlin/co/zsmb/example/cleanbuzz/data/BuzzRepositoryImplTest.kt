@@ -33,13 +33,13 @@ class BuzzRepositoryImplTest {
     fun getBuzz_usesMemoryFirst() {
         whenever(memoryDataSource.getBuzz(any())) doReturn Single.just(listOf(MEMORY_RESULT))
 
-        val observable = buzzRepository.getBuzz(5)
+        val result = buzzRepository.getBuzz(5)
 
-        assertEquals(MEMORY_RESULT, observable.getData())
+        assertEquals(MEMORY_RESULT, result.getData())
     }
 
     @Test
-    fun getBuzz_doesNotUseNetworkIfResultIsInMemory() {
+    fun getBuzzWhenMemoryHasResult_doesNotUseNetwork() {
         whenever(memoryDataSource.getBuzz(any())) doReturn Single.just(listOf(MEMORY_RESULT))
 
         buzzRepository.getBuzz(5)
@@ -48,13 +48,13 @@ class BuzzRepositoryImplTest {
     }
 
     @Test
-    fun getBuzz_usesNetworkIfResultIsNotInMemory() {
+    fun getBuzzWhenMemoryDoesNotHaveResult_usesNetwork() {
         whenever(memoryDataSource.getBuzz(any())) doReturn Single.error<List<String>>(Exception(""))
         whenever(networkDataSource.getBuzz(any())) doReturn Single.just(listOf(NETWORK_RESULT))
 
-        val observable = buzzRepository.getBuzz(5)
+        val result = buzzRepository.getBuzz(5)
 
-        assertEquals(NETWORK_RESULT, observable.getData())
+        assertEquals(NETWORK_RESULT, result.getData())
     }
 
     @Test
