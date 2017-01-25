@@ -1,9 +1,9 @@
 package co.zsmb.example.cleanbuzz.data
 
-import io.reactivex.Observable
+import io.reactivex.Single
 
 interface BuzzDataSource {
 
-    fun getBuzz(number: Int): Observable<List<String>>
+    fun getBuzz(number: Int): Single<List<String>>
 
 }

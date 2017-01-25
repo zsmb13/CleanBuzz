@@ -11,7 +11,7 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
@@ -53,7 +53,7 @@ class BuzzPresenterImplTest {
 
     @Test
     fun requestNumberWithMinValue_showsResultInView() {
-        whenever(usecase.execute(any())) doReturn Observable.just(BuzzResult("1"))
+        whenever(usecase.execute(any())) doReturn Single.just(BuzzResult("1"))
 
         buzzPresenter.requestNumber("1")
 
@@ -62,7 +62,7 @@ class BuzzPresenterImplTest {
 
     @Test
     fun requestNumberWithMaxValue_showsResultInView() {
-        whenever(usecase.execute(any())) doReturn Observable.just(BuzzResult("999"))
+        whenever(usecase.execute(any())) doReturn Single.just(BuzzResult("999"))
 
         buzzPresenter.requestNumber("999")
 

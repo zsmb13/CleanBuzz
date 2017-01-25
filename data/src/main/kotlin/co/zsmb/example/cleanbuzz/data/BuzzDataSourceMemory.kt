@@ -1,6 +1,6 @@
 package co.zsmb.example.cleanbuzz.data
 
-import io.reactivex.Observable
+import io.reactivex.Single
 
 class BuzzDataSourceMemory : BuzzDataSourceWithCache {
 
@@ -16,13 +16,13 @@ class BuzzDataSourceMemory : BuzzDataSourceWithCache {
         buzzResults.addAll(subList)
     }
 
-    override fun getBuzz(number: Int): Observable<List<String>> =
+    override fun getBuzz(number: Int): Single<List<String>> =
             if (number > 0 && number < buzzResults.size) {
                 val result = buzzResults[number]
-                Observable.just(listOf(result))
+                Single.just(listOf(result))
             }
             else {
-                Observable.empty<List<String>>()
+                Single.error<List<String>>(Exception("No items"))
             }
 
     fun <E> List<E>.subList(fromIndex: Int): List<E> {

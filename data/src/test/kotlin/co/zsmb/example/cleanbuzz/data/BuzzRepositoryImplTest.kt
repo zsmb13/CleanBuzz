@@ -3,7 +3,7 @@ package co.zsmb.example.cleanbuzz.data
 import co.zsmb.example.cleanbuzz.domain.BuzzRepository
 import co.zsmb.example.cleanbuzz.domain.BuzzResult
 import com.nhaarman.mockito_kotlin.*
-import io.reactivex.Observable
+import io.reactivex.Single
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -31,7 +31,7 @@ class BuzzRepositoryImplTest {
 
     @Test
     fun getBuzz_usesMemoryFirst() {
-        whenever(memoryDataSource.getBuzz(any())) doReturn Observable.just(listOf(MEMORY_RESULT))
+        whenever(memoryDataSource.getBuzz(any())) doReturn Single.just(listOf(MEMORY_RESULT))
 
         val observable = buzzRepository.getBuzz(5)
 
@@ -40,7 +40,7 @@ class BuzzRepositoryImplTest {
 
     @Test
     fun getBuzz_doesNotUseNetworkIfResultIsInMemory() {
-        whenever(memoryDataSource.getBuzz(any())) doReturn Observable.just(listOf(MEMORY_RESULT))
+        whenever(memoryDataSource.getBuzz(any())) doReturn Single.just(listOf(MEMORY_RESULT))
 
         buzzRepository.getBuzz(5)
 
@@ -49,8 +49,8 @@ class BuzzRepositoryImplTest {
 
     @Test
     fun getBuzz_usesNetworkIfResultIsNotInMemory() {
-        whenever(memoryDataSource.getBuzz(any())) doReturn Observable.empty<List<String>>()
-        whenever(networkDataSource.getBuzz(any())) doReturn Observable.just(listOf(NETWORK_RESULT))
+        whenever(memoryDataSource.getBuzz(any())) doReturn Single.error<List<String>>(Exception(""))
+        whenever(networkDataSource.getBuzz(any())) doReturn Single.just(listOf(NETWORK_RESULT))
 
         val observable = buzzRepository.getBuzz(5)
 
@@ -59,8 +59,8 @@ class BuzzRepositoryImplTest {
 
     @Test
     fun getBuzz_cachesNetworkResultsInMemory() {
-        whenever(memoryDataSource.getBuzz(any())) doReturn Observable.empty<List<String>>()
-        whenever(networkDataSource.getBuzz(any())) doReturn Observable.just(listOf(NETWORK_RESULT))
+        whenever(memoryDataSource.getBuzz(any())) doReturn Single.error<List<String>>(Exception(""))
+        whenever(networkDataSource.getBuzz(any())) doReturn Single.just(listOf(NETWORK_RESULT))
 
         val observable = buzzRepository.getBuzz(5)
         observable.getData()
@@ -68,6 +68,6 @@ class BuzzRepositoryImplTest {
         verify(memoryDataSource).cacheResults(listOf(NETWORK_RESULT))
     }
 
-    fun Observable<BuzzResult>.getData(): String = blockingFirst().result
+    fun Single<BuzzResult>.getData(): String = blockingGet().result
 
 }

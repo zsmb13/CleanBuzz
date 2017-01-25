@@ -1,6 +1,7 @@
 package co.zsmb.example.cleanbuzz.data
 
-import io.reactivex.Observable
+import co.zsmb.example.cleanbuzz.domain.BuzzResult
+import io.reactivex.Single
 import javax.inject.Inject
 
 class BuzzRepositoryImpl
@@ -9,18 +10,16 @@ class BuzzRepositoryImpl
         private val networkDataSource: BuzzDataSource)
     : co.zsmb.example.cleanbuzz.domain.BuzzRepository {
 
-    override fun getBuzz(number: Int): Observable<co.zsmb.example.cleanbuzz.domain.BuzzResult>
+    override fun getBuzz(number: Int): Single<BuzzResult>
             = memory(number)
-            .switchIfEmpty(networkWithCache(number))
-            .map { co.zsmb.example.cleanbuzz.domain.BuzzResult(it.last()) }
+            .onErrorResumeNext { networkWithCache(number) }
+            .map { BuzzResult(it.last()) }
 
     private fun memory(number: Int) = memoryDataSource.getBuzz(number)
 
-    private fun networkWithCache(number: Int) = Observable.defer {
-        networkDataSource.getBuzz(number)
-                .doOnNext {
-                    memoryDataSource.cacheResults(it)
-                }
-    }
+    private fun networkWithCache(number: Int) =
+            networkDataSource
+                    .getBuzz(number)
+                    .doAfterSuccess { memoryDataSource.cacheResults(it) }
 
 }

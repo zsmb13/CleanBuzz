@@ -6,7 +6,7 @@ import co.zsmb.example.cleanbuzz.presentation.buzz.BuzzPresenterImpl
 import co.zsmb.example.cleanbuzz.presentation.buzz.BuzzView
 import co.zsmb.example.cleanbuzz.presentation.buzz.PresentableResult
 import com.nhaarman.mockito_kotlin.*
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Rule
@@ -41,7 +41,7 @@ class BuzzPresenterImplParameterizedTest(val input: String) {
 
     @Test
     fun requestNumberWithValidValue_showsResultInView() {
-        whenever(usecase.execute(any())) doReturn Observable.just(BuzzResult(input))
+        whenever(usecase.execute(any())) doReturn Single.just(BuzzResult(input))
 
         buzzPresenter.requestNumber(input)
 
