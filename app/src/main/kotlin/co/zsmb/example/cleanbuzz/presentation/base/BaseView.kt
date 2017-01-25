@@ -3,6 +3,7 @@ package co.zsmb.example.cleanbuzz.presentation.base
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import co.zsmb.example.cleanbuzz.di.base.ActivityComponent
+import org.jetbrains.anko.toast
 
 abstract class BaseView<PR : Terminable, out AC : ActivityComponent<PR>> : AppCompatActivity(), NavigableView {
 
@@ -28,7 +29,7 @@ abstract class BaseView<PR : Terminable, out AC : ActivityComponent<PR>> : AppCo
         else {
             // The object stored can only be put there by our own
             // onRetainCustomNonConfigurationInstance method, and
-            // is always of type C or is null
+            // is always of type AC or is null
             @Suppress("UNCHECKED_CAST")
             activityComponent = oldComponent as AC
         }
@@ -45,6 +46,18 @@ abstract class BaseView<PR : Terminable, out AC : ActivityComponent<PR>> : AppCo
         if (!isChangingConfigurations) {
             presenter.onTerminate()
         }
+    }
+
+    fun close() {
+        finish()
+    }
+
+    fun showInfoMessage(message: String) {
+        toast(message)
+    }
+
+    fun showErrorMessage(message: String) {
+        toast("Error: $message")
     }
 
 }
