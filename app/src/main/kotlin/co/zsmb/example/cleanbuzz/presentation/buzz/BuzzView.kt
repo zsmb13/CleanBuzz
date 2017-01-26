@@ -1,6 +1,8 @@
 package co.zsmb.example.cleanbuzz.presentation.buzz
 
-interface BuzzView {
+import co.zsmb.example.cleanbuzz.presentation.base.View
+
+interface BuzzView : View {
 
     fun showResult(result: PresentableResult)
 
