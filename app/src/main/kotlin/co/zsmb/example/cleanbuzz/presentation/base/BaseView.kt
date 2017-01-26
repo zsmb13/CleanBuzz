@@ -2,10 +2,9 @@ package co.zsmb.example.cleanbuzz.presentation.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import co.zsmb.example.cleanbuzz.di.base.ActivityComponent
 import org.jetbrains.anko.toast
 
-abstract class BaseView<PR : Terminable, out AC : ActivityComponent<PR>> : AppCompatActivity(), NavigableView {
+abstract class BaseView<PR : Terminable, out AC : ActivityComponent<PR>> : AppCompatActivity(), View {
 
     private lateinit var activityComponent: AC
 
@@ -48,16 +47,10 @@ abstract class BaseView<PR : Terminable, out AC : ActivityComponent<PR>> : AppCo
         }
     }
 
-    fun close() {
-        finish()
-    }
+    override fun close() = finish()
 
-    fun showInfoMessage(message: String) {
-        toast(message)
-    }
+    override fun showMessage(message: String) = toast(message)
 
-    fun showErrorMessage(message: String) {
-        toast("Error: $message")
-    }
+    override fun showError(error: String) = toast(error)
 
 }

@@ -24,10 +24,16 @@ Kotlin is a really nice language for the JVM created by [JetBrains](https://www.
 ### Architecture
 The app is built with Clean architecture, more specifically along [Marko Milos](https://github.com/MarkoMilos)'s interpretation of it. You can watch the very underrated presentation he gave about it at [droidcon Zagreb 2016](http://droidcon.hr/) on YouTube [here](https://www.youtube.com/watch?v=3Mq5newPdck).
 
-Here's a high level overview - it's fairly close to most Clean architecture implementations, and it uses MVP for the presentation layer. Watch the presentation linked above for more details.
+Here's a high level overview of the architecture from their presentation - it's fairly close to most Clean architecture implementations, and it uses MVP for the presentation layer. Watch the presentation linked above for more details.
 
 ![architecture](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/architecture.PNG)
 
+And here's the presentation layer's MVP structure, base classes with green, concrete classes with blue, external dependencies in white.
+In the project you'll find classes prefixed with `Buzz` instead of `Example`, as this diagram is meant to be more general.
+
+![MVP](https://raw.githubusercontent.com/zsmb13/CleanBuzz/master/docs/MVP.png)
+
+##### Modules
 The project contains 3 modules:
  - app (Presentation layer)
     - views, presenters

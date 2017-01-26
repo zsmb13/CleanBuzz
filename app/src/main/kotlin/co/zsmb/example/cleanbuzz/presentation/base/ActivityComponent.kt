@@ -1,4 +1,4 @@
-package co.zsmb.example.cleanbuzz.di.base
+package co.zsmb.example.cleanbuzz.presentation.base
 
 interface ActivityComponent<out PR> {
 

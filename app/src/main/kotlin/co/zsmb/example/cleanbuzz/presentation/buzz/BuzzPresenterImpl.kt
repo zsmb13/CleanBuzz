@@ -50,7 +50,7 @@ class BuzzPresenterImpl @Inject constructor(
     }
 
     private fun executeUseCase(number: Int) {
-        subscriptions += buzzUseCase.execute(number)
+        val subscription = buzzUseCase.execute(number)
                 .map { PresentableResult(it.result) }
                 .observeOn(mainScheduler)
                 .subscribe(
@@ -66,6 +66,8 @@ class BuzzPresenterImpl @Inject constructor(
                             showResult(result)
                         }
                 )
+
+        subscriptions.add(subscription)
     }
 
 }

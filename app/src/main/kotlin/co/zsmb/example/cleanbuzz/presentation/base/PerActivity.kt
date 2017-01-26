@@ -1,4 +1,4 @@
-package co.zsmb.example.cleanbuzz.di.base
+package co.zsmb.example.cleanbuzz.presentation.base
 
 import javax.inject.Scope
 import kotlin.annotation.AnnotationRetention.RUNTIME

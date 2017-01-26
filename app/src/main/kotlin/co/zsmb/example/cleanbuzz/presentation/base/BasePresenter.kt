@@ -1,12 +1,12 @@
 package co.zsmb.example.cleanbuzz.presentation.base
 
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 
 abstract class BasePresenter<V : Any> : Presenter<V> {
 
     protected var view: V? = null
 
-    protected val subscriptions = mutableListOf<Disposable>()
+    protected val subscriptions = CompositeDisposable()
 
     override fun bind(view: V) {
         this.view = view
@@ -16,13 +16,8 @@ abstract class BasePresenter<V : Any> : Presenter<V> {
         this.view = null
     }
 
-    private fun cancelSubscriptions() {
-        subscriptions.filter { !it.isDisposed }.forEach { it.dispose() }
-        subscriptions.clear()
-    }
-
     final override fun onTerminate() {
-        cancelSubscriptions()
+        subscriptions.dispose()
         unbind()
     }
 

@@ -6,24 +6,24 @@ import kotlin.reflect.KClass
 
 class Navigator(private val context: Context) {
 
-    private fun <T : NavigableView> createIntent(view: KClass<T>): Intent {
+    private fun <T : View> createIntent(view: KClass<T>): Intent {
         val intent = Intent(context, view.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         return intent
     }
 
-    fun <T : NavigableView> goto(view: KClass<T>) {
+    fun <T : View> goto(view: KClass<T>) {
         val intent = createIntent(view)
         context.startActivity(intent)
     }
 
-    fun <T : NavigableView> goto(view: KClass<T>, extra: Pair<String, Int>) {
+    fun <T : View> goto(view: KClass<T>, extra: Pair<String, Int>) {
         val intent = createIntent(view)
         intent.putExtra(extra.first, extra.second)
         context.startActivity(intent)
     }
 
-    fun <T : NavigableView> goto(view: KClass<T>, vararg extras: Pair<String, Int>) {
+    fun <T : View> goto(view: KClass<T>, vararg extras: Pair<String, Int>) {
         val intent = createIntent(view)
         extras.forEach {
             intent.putExtra(it.first, it.second)
