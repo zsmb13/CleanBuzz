@@ -4,13 +4,14 @@ import android.content.Context
 import co.zsmb.example.cleanbuzz.R
 import co.zsmb.example.cleanbuzz.domain.usecase.BuzzUseCase
 import co.zsmb.example.cleanbuzz.presentation.base.BasePresenter
+import co.zsmb.example.cleanbuzz.presentation.base.ReplayOneSubject
 import io.reactivex.Scheduler
 import javax.inject.Inject
 
 class BuzzPresenterImpl @Inject constructor(
         private val context: Context,
         private val buzzUseCase: BuzzUseCase,
-        private val mainScheduler: Scheduler)
+        mainScheduler: Scheduler)
     : BasePresenter<BuzzView>(),
         BuzzPresenter {
 
@@ -18,8 +19,20 @@ class BuzzPresenterImpl @Inject constructor(
         PresentableResult(context.getString(R.string.error_number_info), isError = true)
     }
 
+    private val subject = ReplayOneSubject<PresentableResult>(mainScheduler)
+
+    override fun bind(view: BuzzView) {
+        super.bind(view)
+        subject.subscribe { view.showResult(it) }
+    }
+
+    override fun unbind() {
+        super.unbind()
+        subject.unsubscribe()
+    }
+
     private fun showResult(result: PresentableResult) {
-        view?.showResult(result)
+        subject.onNext(result)
     }
 
     override fun requestNumber(numberText: String) {
@@ -52,7 +65,6 @@ class BuzzPresenterImpl @Inject constructor(
     private fun executeUseCase(number: Int) {
         subscriptions += buzzUseCase.execute(number)
                 .map { PresentableResult(it.result) }
-                .observeOn(mainScheduler)
                 .subscribe(
                         { result ->
                             showResult(result)
