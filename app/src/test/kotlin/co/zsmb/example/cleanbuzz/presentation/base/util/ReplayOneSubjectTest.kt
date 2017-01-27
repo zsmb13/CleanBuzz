@@ -1,4 +1,4 @@
-package co.zsmb.example.cleanbuzz.presentation.base
+package co.zsmb.example.cleanbuzz.presentation.base.util
 
 import io.reactivex.schedulers.Schedulers
 import org.junit.Assert.assertEquals

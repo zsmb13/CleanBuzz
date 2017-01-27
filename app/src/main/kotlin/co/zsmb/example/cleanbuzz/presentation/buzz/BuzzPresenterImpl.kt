@@ -4,7 +4,7 @@ import android.content.Context
 import co.zsmb.example.cleanbuzz.R
 import co.zsmb.example.cleanbuzz.domain.usecase.BuzzUseCase
 import co.zsmb.example.cleanbuzz.presentation.base.BasePresenter
-import co.zsmb.example.cleanbuzz.presentation.base.ReplayOneSubject
+import co.zsmb.example.cleanbuzz.presentation.base.util.ReplayOneSubject
 import io.reactivex.Scheduler
 import javax.inject.Inject
 
